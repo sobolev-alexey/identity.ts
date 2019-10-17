@@ -1,4 +1,5 @@
 //DID
+import './shim.js'; 
 export { DID } from './DID/DID';
 export { DIDDocument } from './DID/DIDDocument';
 export { Service, ServiceDataModel } from './DID/Service';

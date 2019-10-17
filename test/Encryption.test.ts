@@ -9,7 +9,7 @@ describe('RSA Encryption', function() {
     let msg : string = "Hello World";
 
     it('Should generate a keypair', async function() {
-        this.timeout(10000);
+        this.timeout(20000);
         keypair = await GenerateRSAKeypair();
         expect(keypair).to.not.be.undefined;
     });
@@ -95,7 +95,7 @@ describe('Recursive Sorting', function() {
     let keypair : RSAKeypair;
     
     before( async function(){ 
-        this.timeout(10000);
+        this.timeout(20000);
         keypair = await GenerateRSAKeypair();
     }); 
 

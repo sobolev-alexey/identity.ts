@@ -103,11 +103,11 @@ var VerifiablePresentation = /** @class */ (function (_super) {
         var vcs = this.presentation.GetVerifiableCredentials();
         for (var i = 0; i < vcs.length; i++) {
             var code = vcs[i].Verify();
-            if (code != VerifiableObject_1.VerificationErrorCodes.SUCCES) {
+            if (code != VerifiableObject_1.VerificationErrorCodes.SUCCESS) {
                 return code;
             }
         }
-        return VerifiableObject_1.VerificationErrorCodes.SUCCES;
+        return VerifiableObject_1.VerificationErrorCodes.SUCCESS;
     };
     VerifiablePresentation.prototype.EncodeToJSON = function () {
         return __assign({}, this.presentation.EncodeToJSON(), { proof: this.proof.EncodeToJSON() });

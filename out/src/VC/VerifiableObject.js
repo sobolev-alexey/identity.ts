@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var VerificationErrorCodes;
 (function (VerificationErrorCodes) {
-    VerificationErrorCodes[VerificationErrorCodes["SUCCES"] = 1] = "SUCCES";
+    VerificationErrorCodes[VerificationErrorCodes["SUCCESS"] = 1] = "SUCCESS";
     VerificationErrorCodes[VerificationErrorCodes["NO_MATCH_SCHEMA"] = 2] = "NO_MATCH_SCHEMA";
     VerificationErrorCodes[VerificationErrorCodes["ISSUER_NOT_TRUSTED"] = 3] = "ISSUER_NOT_TRUSTED";
     VerificationErrorCodes[VerificationErrorCodes["INCORRECT_SIGNATURE"] = 4] = "INCORRECT_SIGNATURE";

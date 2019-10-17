@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 //DID
+require("./shim.js");
 var DID_1 = require("./DID/DID");
 exports.DID = DID_1.DID;
 var DIDDocument_1 = require("./DID/DIDDocument");

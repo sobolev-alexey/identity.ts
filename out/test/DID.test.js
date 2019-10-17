@@ -53,7 +53,9 @@ describe('DID Functionalities', function () {
             var keypair;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, GenerateKeypair_1.GenerateRSAKeypair()];
+                    case 0:
+                        this.timeout(20000);
+                        return [4 /*yield*/, GenerateKeypair_1.GenerateRSAKeypair()];
                     case 1:
                         keypair = _a.sent();
                         uuid = Hash_1.Hash(keypair.GetPublicKey());
@@ -103,7 +105,9 @@ describe('DID Document', function () {
             var keypair;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, CreateRandomDID_1.CreateRandomDID(seed)];
+                    case 0:
+                        this.timeout(20000);
+                        return [4 /*yield*/, CreateRandomDID_1.CreateRandomDID(seed)];
                     case 1:
                         document = _a.sent();
                         return [4 /*yield*/, GenerateKeypair_1.GenerateRSAKeypair()];
@@ -145,6 +149,19 @@ describe('DID Document', function () {
                     case 2:
                         documentFromTangle = _a.sent();
                         chai_1.expect(documentFromTangle.GetJSONDIDDocument()).to.deep.equal(document.GetJSONDIDDocument());
+                        return [2 /*return*/];
+                }
+            });
+        });
+    });
+    it('Should handle empty DID Documents', function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, DIDDocument_1.DIDDocument.readDIDDocument(provider, GenerateSeed_1.GenerateSeed(81))];
+                    case 1:
+                        result = _a.sent();
                         return [2 /*return*/];
                 }
             });

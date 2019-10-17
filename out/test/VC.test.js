@@ -199,7 +199,7 @@ describe('Verifiable Credentials', function () {
                 VCProof = proofMethod({ 'issuer': IssuerDIDDocument, 'issuerKeyId': "keys-1" });
                 VCProof.Sign(credential.EncodeToJSON());
                 verifiableCredential = VerifiableCredential_1.VerifiableCredential.Create(credential, VCProof);
-                chai_1.expect(verifiableCredential.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCES);
+                chai_1.expect(verifiableCredential.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCESS);
             });
             it('Should be able to Encode / Decode a Verifiable Credential and still verify', function () {
                 return __awaiter(this, void 0, void 0, function () {
@@ -215,7 +215,7 @@ describe('Verifiable Credentials', function () {
                             case 2:
                                 proofParameters = _a.sent();
                                 importedVerifiableCredential = VerifiableCredential_1.VerifiableCredential.DecodeFromJSON(verifiableCredential.EncodeToJSON(), proofParameters);
-                                chai_1.expect(importedVerifiableCredential.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCES);
+                                chai_1.expect(importedVerifiableCredential.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCESS);
                                 chai_1.expect(importedVerifiableCredential.EncodeToJSON()).to.deep.equal(verifiableCredential.EncodeToJSON());
                                 return [2 /*return*/];
                         }
@@ -246,7 +246,7 @@ describe('Verifiable Credentials', function () {
                 presentationProof = proofMethod({ 'issuer': SubjectDIDDocument, 'issuerKeyId': "keys-1", challengeNonce: "123" });
                 presentationProof.Sign(presentation.EncodeToJSON());
                 verifiablePresentation = VerifiablePresentation_1.VerifiablePresentation.Create(presentation, presentationProof);
-                chai_1.expect(verifiablePresentation.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCES);
+                chai_1.expect(verifiablePresentation.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCESS);
             });
             //verifiablePresentation Shouldn't this be enough to integrate into VerifiableObject and do DecodeProofDocument?
             it('Should be able to Encode / Decode a Verifiable Presentation and still verify', function () {
@@ -260,7 +260,7 @@ describe('Verifiable Credentials', function () {
                                 return [4 /*yield*/, VerifiablePresentation_1.VerifiablePresentation.DecodeFromJSON(verifiablePresentation.EncodeToJSON(), provider, proofParameters)];
                             case 2:
                                 importVerifiablePresentation = _a.sent();
-                                chai_1.expect(importVerifiablePresentation.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCES);
+                                chai_1.expect(importVerifiablePresentation.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCESS);
                                 chai_1.expect(importVerifiablePresentation.EncodeToJSON()).to.deep.equal(verifiablePresentation.EncodeToJSON());
                                 return [2 /*return*/];
                         }
@@ -276,7 +276,7 @@ describe('Verifiable Credentials', function () {
                 presentationProof.Sign(presentation.EncodeToJSON());
                 DIDAuth = VerifiablePresentation_1.VerifiablePresentation.Create(presentation, presentationProof);
                 SchemaManager_1.SchemaManager.GetInstance().GetSchema("DIDAuthenticationCredential").AddTrustedDID(SubjectDIDDocument.GetDID());
-                chai_1.expect(DIDAuth.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCES);
+                chai_1.expect(DIDAuth.Verify()).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCESS);
                 SchemaManager_1.SchemaManager.GetInstance().GetSchema("DIDAuthenticationCredential").RemoveTrustedDID(SubjectDIDDocument.GetDID());
                 chai_1.expect(DIDAuth.GetVerifiedTypes()).to.deep.equal(["DIDAuthenticationCredential"]);
             });
@@ -289,7 +289,7 @@ describe('Verifiable Credentials', function () {
                                 _a = chai_1.expect;
                                 return [4 /*yield*/, src_1.VerifyDIDAuthentication(DIDAuth.EncodeToJSON(), provider)];
                             case 1:
-                                _a.apply(void 0, [_b.sent()]).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCES);
+                                _a.apply(void 0, [_b.sent()]).to.deep.equal(VerifiableObject_1.VerificationErrorCodes.SUCCESS);
                                 return [2 /*return*/];
                         }
                     });

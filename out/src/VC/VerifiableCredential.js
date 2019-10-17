@@ -62,7 +62,7 @@ var VerifiableCredential = /** @class */ (function (_super) {
         if (!this.proof.VerifySignature(this.credential.EncodeToJSON())) {
             return VerifiableObject_1.VerificationErrorCodes.INCORRECT_SIGNATURE;
         }
-        return VerifiableObject_1.VerificationErrorCodes.SUCCES;
+        return VerifiableObject_1.VerificationErrorCodes.SUCCESS;
     };
     VerifiableCredential.prototype.EncodeToJSON = function () {
         return __assign({}, this.credential.EncodeToJSON(), { proof: this.proof.EncodeToJSON() });

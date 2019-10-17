@@ -7,4 +7,5 @@ export function GenerateRSAKeypair() : Promise<RSAKeypair> {
         const privateKey = jrsa.KEYUTIL.getPEM(rsaKeypair.prvKeyObj, "PKCS8PRV")
         const publicKey = jrsa.KEYUTIL.getPEM(rsaKeypair.pubKeyObj)
         resolve(new RSAKeypair(publicKey, privateKey));
-    });}
+    });
+}

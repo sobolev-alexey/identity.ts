@@ -1,7 +1,7 @@
 import { Proof } from "./Proof/Proof";
 
 export enum VerificationErrorCodes {
-    SUCCES = 1,
+    SUCCESS = 1,
     NO_MATCH_SCHEMA,
     ISSUER_NOT_TRUSTED,
     INCORRECT_SIGNATURE,

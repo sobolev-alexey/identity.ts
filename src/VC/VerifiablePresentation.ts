@@ -41,12 +41,12 @@ export class VerifiablePresentation extends VerifiableObject {
         const vcs = this.presentation.GetVerifiableCredentials();
         for(let i=0; i < vcs.length; i++) {
             const code = vcs[i].Verify();
-            if(code != VerificationErrorCodes.SUCCES) {
+            if(code != VerificationErrorCodes.SUCCESS) {
                 return code;
             }
         }
 
-        return VerificationErrorCodes.SUCCES;
+        return VerificationErrorCodes.SUCCESS;
     }
 
     public EncodeToJSON(): VerifiablePresentationDataModel {

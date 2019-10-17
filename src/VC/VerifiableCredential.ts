@@ -46,7 +46,7 @@ export class VerifiableCredential extends VerifiableObject {
             return VerificationErrorCodes.INCORRECT_SIGNATURE;
         }
 
-        return VerificationErrorCodes.SUCCES;
+        return VerificationErrorCodes.SUCCESS;
     }
 
     public EncodeToJSON() : VerifiableCredentialDataModel {

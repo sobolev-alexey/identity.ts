@@ -165,7 +165,7 @@ describe('Verifiable Credentials', async function() {
         VCProof = proofMethod({'issuer' : IssuerDIDDocument, 'issuerKeyId' : "keys-1"});
         VCProof.Sign(credential.EncodeToJSON());
         verifiableCredential = VerifiableCredential.Create(credential, VCProof);
-        expect(verifiableCredential.Verify()).to.deep.equal(VerificationErrorCodes.SUCCES);
+        expect(verifiableCredential.Verify()).to.deep.equal(VerificationErrorCodes.SUCCESS);
     });
 
     it('Should be able to Encode / Decode a Verifiable Credential and still verify', async function() {
@@ -173,7 +173,7 @@ describe('Verifiable Credentials', async function() {
         await delay(2000);
         let proofParameters : ProofParameters = await DecodeProofDocument(verifiableCredential.EncodeToJSON().proof, provider);
         let importedVerifiableCredential : VerifiableCredential = VerifiableCredential.DecodeFromJSON(verifiableCredential.EncodeToJSON(), proofParameters);
-        expect(importedVerifiableCredential.Verify()).to.deep.equal(VerificationErrorCodes.SUCCES);
+        expect(importedVerifiableCredential.Verify()).to.deep.equal(VerificationErrorCodes.SUCCESS);
         expect(importedVerifiableCredential.EncodeToJSON()).to.deep.equal(verifiableCredential.EncodeToJSON());
     });
 
@@ -195,14 +195,14 @@ describe('Verifiable Credentials', async function() {
         presentationProof = proofMethod({'issuer' : SubjectDIDDocument, 'issuerKeyId' : "keys-1", challengeNonce : "123"});
         presentationProof.Sign(presentation.EncodeToJSON());
         verifiablePresentation = VerifiablePresentation.Create(presentation, presentationProof);
-        expect(verifiablePresentation.Verify()).to.deep.equal(VerificationErrorCodes.SUCCES);
+        expect(verifiablePresentation.Verify()).to.deep.equal(VerificationErrorCodes.SUCCESS);
     });
 
     //verifiablePresentation Shouldn't this be enough to integrate into VerifiableObject and do DecodeProofDocument?
     it('Should be able to Encode / Decode a Verifiable Presentation and still verify', async function() {
         let proofParameters : ProofParameters = await DecodeProofDocument(verifiablePresentation.EncodeToJSON().proof, provider);
         let importVerifiablePresentation : VerifiablePresentation = await VerifiablePresentation.DecodeFromJSON(verifiablePresentation.EncodeToJSON(), provider, proofParameters);
-        expect(importVerifiablePresentation.Verify()).to.deep.equal(VerificationErrorCodes.SUCCES);
+        expect(importVerifiablePresentation.Verify()).to.deep.equal(VerificationErrorCodes.SUCCESS);
         expect(importVerifiablePresentation.EncodeToJSON()).to.deep.equal(verifiablePresentation.EncodeToJSON());
     });
 
@@ -218,13 +218,13 @@ describe('Verifiable Credentials', async function() {
         presentationProof.Sign(presentation.EncodeToJSON());
         DIDAuth = VerifiablePresentation.Create(presentation, presentationProof);
         SchemaManager.GetInstance().GetSchema("DIDAuthenticationCredential").AddTrustedDID(SubjectDIDDocument.GetDID());
-        expect(DIDAuth.Verify()).to.deep.equal(VerificationErrorCodes.SUCCES);
+        expect(DIDAuth.Verify()).to.deep.equal(VerificationErrorCodes.SUCCESS);
         SchemaManager.GetInstance().GetSchema("DIDAuthenticationCredential").RemoveTrustedDID(SubjectDIDDocument.GetDID());
         expect(DIDAuth.GetVerifiedTypes()).to.deep.equal(["DIDAuthenticationCredential"]);
     });
 
     it('Should be able to verify an imported DID Authentication', async function() {
-        expect(await VerifyDIDAuthentication(DIDAuth.EncodeToJSON(), provider)).to.deep.equal(VerificationErrorCodes.SUCCES);
+        expect(await VerifyDIDAuthentication(DIDAuth.EncodeToJSON(), provider)).to.deep.equal(VerificationErrorCodes.SUCCESS);
     });
 });
 

@@ -12,16 +12,20 @@ export class SchemaManager {
 
         //Load all default Schemas
         let folderPath : string = __dirname +"/Schemas";
-        let filePaths : string[] = fs.readdirSync(folderPath);
-        for(let i=0; i < filePaths.length; i++) {
-            let fileName : string = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
-            this.AddSchemaFromFile(fileName, folderPath+"/"+filePaths[i]);
-        }
+        fs.readdir(folderPath, (err, filePaths) => {
+            if (err) throw err;
+            for(let i=0; i < filePaths.length; i++) {
+                let fileName : string = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
+                this.AddSchemaFromFile(fileName, folderPath+"/"+filePaths[i]);
+            }
+        })
     }
 
     public AddSchemaFromFile(name : string, path : string, trustedDIDs ?: DID[]) {
-        let fileData : string = fs.readFileSync(path, "utf8");
-        this.schemas.push( new Schema(name, JSON.parse(fileData), trustedDIDs) );
+        fs.readFile(path, (err, fileData) => {
+            if (err) throw err;
+            this.schemas.push( new Schema(name, JSON.parse(fileData.toString()), trustedDIDs) );
+        });
     }
 
     public AddSchema(name : string, layout : {}, trustedDIDs ?: DID[]) {
@@ -39,10 +43,23 @@ export class SchemaManager {
 
     public GetSchemaNames() : string[] {
         let schemaNames : string[] = [];
-        for(let i=0; i < this.schemas.length; i++) {
-            schemaNames.push(this.schemas[i].GetName());
+        if (!this.schemas.length) {
+            let folderPath : string = __dirname +"/Schemas";
+            fs.readdir(folderPath, async (err, filePaths) => {
+                if (err) throw err;
+                for(let i=0; i < filePaths.length; i++) {
+                    let fileName : string = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
+                    await this.AddSchemaFromFile(fileName, folderPath+"/"+filePaths[i]);
+                    schemaNames.push(fileName);
+                }
+                return schemaNames;
+            })
+        } else {
+            for(let i=0; i < this.schemas.length; i++) {
+                schemaNames.push(this.schemas[i].GetName());
+            }
+            return schemaNames;
         }
-        return schemaNames;
     }
 
     static GetInstance() : SchemaManager {

@@ -15,6 +15,7 @@ const provider : string = "https://nodes.devnet.iota.org:443";
 describe('DID Functionalities', function() {
     let uuid : string;
     it('Should create a valid DID from a UUID', async function() {
+        this.timeout(10000);
         let keypair : RSAKeypair = await GenerateRSAKeypair();
         uuid = Hash(keypair.GetPublicKey());
         expect("did:iota:main:"+uuid, new DID(uuid).GetSpecificDID());
@@ -46,6 +47,7 @@ describe('DID Document', function() {
     let service : Service;
 
     it('Should create and output a valid DID Document', async function(){
+        this.timeout(10000);
         document = await CreateRandomDID(seed);
         let keypair : RSAKeypair = await GenerateRSAKeypair();
         document.AddKeypair(keypair, "keys-1");

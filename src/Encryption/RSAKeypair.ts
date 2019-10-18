@@ -1,5 +1,5 @@
+const crypto = require('crypto');
 import { BaseKeypair } from './BaseKeypair';
-import * as crypto from 'crypto';
 
 export const passphrase : string = 'Semantic Market runs on IOTA! @(^_^)@';
 
@@ -12,13 +12,13 @@ export class RSAKeypair extends BaseKeypair {
     }
     
     public PublicEncrypt(message: string): Buffer {
-        return crypto.publicEncrypt({key: this.publicKey, padding: crypto.constants.RSA_PKCS1_PADDING}, Buffer.from(message));
+        return crypto.publicEncrypt({key: this.publicKey, padding: 1}, Buffer.from(message));
     }   
 
     //These two functions dont seem useful as Sign and Verify should take care of this.
 
     /*public async PublicDecrypt(input: string): Promise<string> {
-        return crypto.publicDecrypt({key : this.publicKey, padding: crypto.constants.RSA_PKCS1_PADDING}, Buffer.from(input)).toString();
+        return crypto.publicDecrypt({key : this.publicKey, padding: 1}, Buffer.from(input)).toString();
     }*/
 
     /*public async PrivateEncrypt(message: string): Promise<Buffer> {
@@ -27,7 +27,7 @@ export class RSAKeypair extends BaseKeypair {
             return new Buffer("");
         }
             
-        return crypto.privateEncrypt({key: this.privateKey, passphrase: passphrase, padding: crypto.constants.RSA_PKCS1_PADDING}, Buffer.from(message));
+        return crypto.privateEncrypt({key: this.privateKey, passphrase: passphrase, padding: 1}, Buffer.from(message));
     }*/
 
     public PrivateDecrypt(input : Buffer): string {
@@ -35,20 +35,20 @@ export class RSAKeypair extends BaseKeypair {
             console.log("Warning: Decryption with private key called, without a private key accessible\n");
             return "";
         }
-        return crypto.privateDecrypt({key: this.privateKey, passphrase: passphrase, padding: crypto.constants.RSA_PKCS1_PADDING}, input).toString();
+        return crypto.privateDecrypt({key: this.privateKey, passphrase: passphrase, padding: 1}, input).toString();
     }
     
     public Sign(dataToSign: string): Buffer {
         if(!this.privateKey)
             return undefined;
-        const signer : crypto.Signer = crypto.createSign('SHA256');
+        const signer : any = crypto.createSign('SHA256');
         signer.update(dataToSign);
         signer.end();
-        return signer.sign({key: this.privateKey, passphrase: passphrase, padding: crypto.constants.RSA_PKCS1_PADDING});
+        return signer.sign({key: this.privateKey, passphrase: passphrase, padding: 1});
     }
 
     public Verify(dataToCheck: string, signatureToVerify: Buffer): boolean {
-        const verifier : crypto.Verify = crypto.createVerify('SHA256');
+        const verifier : any = crypto.createVerify('SHA256');
         verifier.update(dataToCheck);
         verifier.end();
         return verifier.verify(this.publicKey, signatureToVerify);

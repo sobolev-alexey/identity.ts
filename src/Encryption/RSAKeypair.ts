@@ -41,14 +41,14 @@ export class RSAKeypair extends BaseKeypair {
     public Sign(dataToSign: string): Buffer {
         if(!this.privateKey)
             return undefined;
-        const signer : any = crypto.createSign('SHA256');
+        const signer : any = crypto.createSign('RSA-SHA256');
         signer.update(dataToSign);
         signer.end();
         return signer.sign({key: this.privateKey, passphrase: passphrase, padding: 1});
     }
 
     public Verify(dataToCheck: string, signatureToVerify: Buffer): boolean {
-        const verifier : any = crypto.createVerify('SHA256');
+        const verifier : any = crypto.createVerify('RSA-SHA256');
         verifier.update(dataToCheck);
         verifier.end();
         return verifier.verify(this.publicKey, signatureToVerify);

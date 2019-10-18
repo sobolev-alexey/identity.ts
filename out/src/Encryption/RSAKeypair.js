@@ -49,13 +49,13 @@ var RSAKeypair = /** @class */ (function (_super) {
     RSAKeypair.prototype.Sign = function (dataToSign) {
         if (!this.privateKey)
             return undefined;
-        var signer = crypto.createSign('SHA256');
+        var signer = crypto.createSign('RSA-SHA256');
         signer.update(dataToSign);
         signer.end();
         return signer.sign({ key: this.privateKey, passphrase: exports.passphrase, padding: 1 });
     };
     RSAKeypair.prototype.Verify = function (dataToCheck, signatureToVerify) {
-        var verifier = crypto.createVerify('SHA256');
+        var verifier = crypto.createVerify('RSA-SHA256');
         verifier.update(dataToCheck);
         verifier.end();
         return verifier.verify(this.publicKey, signatureToVerify);

@@ -25,11 +25,11 @@ var RSAKeypair = /** @class */ (function (_super) {
         return _this;
     }
     RSAKeypair.prototype.PublicEncrypt = function (message) {
-        return crypto.publicEncrypt({ key: this.publicKey, padding: crypto.constants.RSA_PKCS1_PADDING }, Buffer.from(message));
+        return crypto.publicEncrypt({ key: this.publicKey, padding: 1 }, Buffer.from(message));
     };
     //These two functions dont seem useful as Sign and Verify should take care of this.
     /*public async PublicDecrypt(input: string): Promise<string> {
-        return crypto.publicDecrypt({key : this.publicKey, padding: crypto.constants.RSA_PKCS1_PADDING}, Buffer.from(input)).toString();
+        return crypto.publicDecrypt({key : this.publicKey, padding: 1}, Buffer.from(input)).toString();
     }*/
     /*public async PrivateEncrypt(message: string): Promise<Buffer> {
         if(!this.privateKey) {
@@ -37,14 +37,14 @@ var RSAKeypair = /** @class */ (function (_super) {
             return new Buffer("");
         }
             
-        return crypto.privateEncrypt({key: this.privateKey, passphrase: passphrase, padding: crypto.constants.RSA_PKCS1_PADDING}, Buffer.from(message));
+        return crypto.privateEncrypt({key: this.privateKey, passphrase: passphrase, padding: 1}, Buffer.from(message));
     }*/
     RSAKeypair.prototype.PrivateDecrypt = function (input) {
         if (!this.privateKey) {
             console.log("Warning: Decryption with private key called, without a private key accessible\n");
             return "";
         }
-        return crypto.privateDecrypt({ key: this.privateKey, passphrase: exports.passphrase, padding: crypto.constants.RSA_PKCS1_PADDING }, input).toString();
+        return crypto.privateDecrypt({ key: this.privateKey, passphrase: exports.passphrase, padding: 1 }, input).toString();
     };
     RSAKeypair.prototype.Sign = function (dataToSign) {
         if (!this.privateKey)
@@ -52,7 +52,7 @@ var RSAKeypair = /** @class */ (function (_super) {
         var signer = crypto.createSign('SHA256');
         signer.update(dataToSign);
         signer.end();
-        return signer.sign({ key: this.privateKey, passphrase: exports.passphrase, padding: crypto.constants.RSA_PKCS1_PADDING });
+        return signer.sign({ key: this.privateKey, passphrase: exports.passphrase, padding: 1 });
     };
     RSAKeypair.prototype.Verify = function (dataToCheck, signatureToVerify) {
         var verifier = crypto.createVerify('SHA256');

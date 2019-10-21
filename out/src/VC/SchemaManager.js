@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require("fs");
+var fs = require("react-native-fs");
 var Schema_1 = require("./Schema");
 //TODO: Add DID's to trust
 var SchemaManager = /** @class */ (function () {
@@ -45,30 +45,44 @@ var SchemaManager = /** @class */ (function () {
         this.schemas = [];
         //Load all default Schemas
         var folderPath = __dirname + "/Schemas";
-        fs.readdir(folderPath, function (err, filePaths) {
-            if (err)
-                throw err;
+        fs.readdir(folderPath)
+            .then(function (filePaths) {
             for (var i = 0; i < filePaths.length; i++) {
                 var fileName = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
                 _this.AddSchemaFromFile(fileName, folderPath + "/" + filePaths[i]);
             }
+        })
+            .catch(function (err) {
+            console.log(err.message, err.code);
         });
+        // fs.readdir(folderPath, (err, filePaths) => {
+        //     if (err) throw err;
+        //     for(let i=0; i < filePaths.length; i++) {
+        //         let fileName : string = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
+        //         this.AddSchemaFromFile(fileName, folderPath+"/"+filePaths[i]);
+        //     }
+        // })
     }
     SchemaManager.prototype.AddSchemaFromFile = function (name, path, trustedDIDs) {
         var _this = this;
-        fs.readFile(path, function (err, fileData) { return __awaiter(_this, void 0, void 0, function () {
+        fs.readFile(path)
+            .then(function (fileData) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        if (err)
-                            throw err;
-                        return [4 /*yield*/, this.schemas.push(new Schema_1.Schema(name, JSON.parse(fileData.toString('utf-8')), trustedDIDs))];
+                    case 0: return [4 /*yield*/, this.schemas.push(new Schema_1.Schema(name, JSON.parse(fileData.toString()), trustedDIDs))];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
-        }); });
+        }); })
+            .catch(function (err) {
+            console.log(err.message, err.code);
+        });
+        // fs.readFile(path, async (err, fileData) => {
+        //     if (err) throw err;
+        //     await this.schemas.push( new Schema(name, JSON.parse(fileData.toString('utf-8')), trustedDIDs) );
+        // })
     };
     SchemaManager.prototype.AddSchema = function (name, layout, trustedDIDs) {
         this.schemas.push(new Schema_1.Schema(name, layout, trustedDIDs));
@@ -86,30 +100,27 @@ var SchemaManager = /** @class */ (function () {
         var schemaNames = [];
         if (!this.schemas.length) {
             var folderPath_1 = __dirname + "/Schemas";
-            fs.readdir(folderPath_1, function (err, filePaths) { return __awaiter(_this, void 0, void 0, function () {
-                var i, fileName;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            if (err)
-                                throw err;
-                            i = 0;
-                            _a.label = 1;
-                        case 1:
-                            if (!(i < filePaths.length)) return [3 /*break*/, 4];
-                            fileName = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
-                            return [4 /*yield*/, this.AddSchemaFromFile(fileName, folderPath_1 + "/" + filePaths[i])];
-                        case 2:
-                            _a.sent();
-                            schemaNames.push(fileName);
-                            _a.label = 3;
-                        case 3:
-                            i++;
-                            return [3 /*break*/, 1];
-                        case 4: return [2 /*return*/, schemaNames];
-                    }
-                });
-            }); });
+            fs.readdir(folderPath_1)
+                .then(function (filePaths) {
+                for (var i = 0; i < filePaths.length; i++) {
+                    var fileName = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
+                    _this.AddSchemaFromFile(fileName, folderPath_1 + "/" + filePaths[i]);
+                    schemaNames.push(fileName);
+                }
+                return schemaNames;
+            })
+                .catch(function (err) {
+                console.log(err.message, err.code);
+            });
+            // fs.readdir(folderPath, async (err, filePaths) => {
+            //     if (err) throw err;
+            //     for(let i=0; i < filePaths.length; i++) {
+            //         let fileName : string = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
+            //         await this.AddSchemaFromFile(fileName, folderPath+"/"+filePaths[i]);
+            //         schemaNames.push(fileName);
+            //     }
+            //     return schemaNames;
+            // })
         }
         else {
             for (var i = 0; i < this.schemas.length; i++) {

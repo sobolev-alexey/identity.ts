@@ -1,6 +1,6 @@
 {
   "name": "identity_ts",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Digital Identity implementation",
   "main": "./out/src/index.js",
   "typings": "typings/src",
@@ -24,7 +24,6 @@
     "@iota/mam": "sobolev-alexey/react-native.mam.client.js",
     "@types/bluebird": "^3.5.28",
     "@types/tv4": "^1.2.29",
-    "asyncstorage-down": "^4.2.0",
     "jsrsasign": "^8.0.12",
     "react-native-crypto": "^2.2.0",
     "react-native-randombytes": "^3.5.3",

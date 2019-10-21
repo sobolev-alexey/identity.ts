@@ -22,10 +22,10 @@ export class SchemaManager {
     }
 
     public AddSchemaFromFile(name : string, path : string, trustedDIDs ?: DID[]) {
-        fs.readFile(path, (err, fileData) => {
+        fs.readFile(path, async (err, fileData) => {
             if (err) throw err;
-            this.schemas.push( new Schema(name, JSON.parse(fileData.toString()), trustedDIDs) );
-        });
+            await this.schemas.push( new Schema(name, JSON.parse(fileData.toString('utf-8')), trustedDIDs) );
+        })
     }
 
     public AddSchema(name : string, layout : {}, trustedDIDs ?: DID[]) {

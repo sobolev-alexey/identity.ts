@@ -65,7 +65,7 @@ var VerifiableCredential = /** @class */ (function (_super) {
         return VerifiableObject_1.VerificationErrorCodes.SUCCESS;
     };
     VerifiableCredential.prototype.EncodeToJSON = function () {
-        return __assign({}, this.credential.EncodeToJSON(), { proof: this.proof.EncodeToJSON() });
+        return __assign(__assign({}, this.credential.EncodeToJSON()), { proof: this.proof.EncodeToJSON() });
     };
     VerifiableCredential.prototype.GetCredential = function () {
         return this.credential;

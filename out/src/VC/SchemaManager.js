@@ -60,7 +60,6 @@ var SchemaManager = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(555, JSON.parse(fileData.toString('utf-8')));
                         if (err)
                             throw err;
                         return [4 /*yield*/, this.schemas.push(new Schema_1.Schema(name, JSON.parse(fileData.toString('utf-8')), trustedDIDs))];
@@ -83,14 +82,41 @@ var SchemaManager = /** @class */ (function () {
         return undefined;
     };
     SchemaManager.prototype.GetSchemaNames = function () {
+        var _this = this;
         var schemaNames = [];
-        console.log('GetSchemaNames', this.schemas.length);
-        console.log(this.schemas);
-        for (var i = 0; i < this.schemas.length; i++) {
-            schemaNames.push(this.schemas[i].GetName());
+        if (!this.schemas.length) {
+            var folderPath_1 = __dirname + "/Schemas";
+            fs.readdir(folderPath_1, function (err, filePaths) { return __awaiter(_this, void 0, void 0, function () {
+                var i, fileName;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (err)
+                                throw err;
+                            i = 0;
+                            _a.label = 1;
+                        case 1:
+                            if (!(i < filePaths.length)) return [3 /*break*/, 4];
+                            fileName = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
+                            return [4 /*yield*/, this.AddSchemaFromFile(fileName, folderPath_1 + "/" + filePaths[i])];
+                        case 2:
+                            _a.sent();
+                            schemaNames.push(fileName);
+                            _a.label = 3;
+                        case 3:
+                            i++;
+                            return [3 /*break*/, 1];
+                        case 4: return [2 /*return*/, schemaNames];
+                    }
+                });
+            }); });
         }
-        console.log('schemaNames', schemaNames);
-        return schemaNames;
+        else {
+            for (var i = 0; i < this.schemas.length; i++) {
+                schemaNames.push(this.schemas[i].GetName());
+            }
+            return schemaNames;
+        }
     };
     SchemaManager.GetInstance = function () {
         if (!SchemaManager.instance) {

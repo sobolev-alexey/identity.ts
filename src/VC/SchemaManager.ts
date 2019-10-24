@@ -1,6 +1,8 @@
-import * as fs from 'fs';
 import { Schema } from './Schema';
 import { DID } from '../DID/DID';
+const DIDAuthenticationCredential = require('./Schemas/DIDAuthenticationCredential.json');
+const DomainValidatedCertificate = require('./Schemas/DomainValidatedCertificate.json');
+const WhiteListedCredential = require('./Schemas/WhiteListedCredential.json');
 
 //TODO: Add DID's to trust
 export class SchemaManager {
@@ -10,22 +12,13 @@ export class SchemaManager {
     private constructor() {
         this.schemas = [];
 
-        //Load all default Schemas
-        let folderPath : string = __dirname +"/Schemas";
-        fs.readdir(folderPath, (err, filePaths) => {
-            if (err) throw err;
-            for(let i=0; i < filePaths.length; i++) {
-                let fileName : string = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
-                this.AddSchemaFromFile(fileName, folderPath+"/"+filePaths[i]);
-            }
-        })
+        this.AddSchemaFromFile('DIDAuthenticationCredential', DIDAuthenticationCredential);
+        this.AddSchemaFromFile('DomainValidatedCertificate', DomainValidatedCertificate);
+        this.AddSchemaFromFile('WhiteListedCredential', WhiteListedCredential);
     }
 
-    public AddSchemaFromFile(name : string, path : string, trustedDIDs ?: DID[]) {
-        fs.readFile(path, (err, fileData) => {
-            if (err) throw err;
-            this.schemas.push( new Schema(name, JSON.parse(fileData.toString()), trustedDIDs) );
-        });
+    public AddSchemaFromFile(name: string, content: any, trustedDIDs ?: DID[]) {
+        this.schemas.push( new Schema(name, content, trustedDIDs) );
     }
 
     public AddSchema(name : string, layout : {}, trustedDIDs ?: DID[]) {
@@ -43,23 +36,10 @@ export class SchemaManager {
 
     public GetSchemaNames() : string[] {
         let schemaNames : string[] = [];
-        if (!this.schemas.length) {
-            let folderPath : string = __dirname +"/Schemas";
-            fs.readdir(folderPath, async (err, filePaths) => {
-                if (err) throw err;
-                for(let i=0; i < filePaths.length; i++) {
-                    let fileName : string = filePaths[i].substr(0, filePaths[i].lastIndexOf('.'));
-                    await this.AddSchemaFromFile(fileName, folderPath+"/"+filePaths[i]);
-                    schemaNames.push(fileName);
-                }
-                return schemaNames;
-            })
-        } else {
-            for(let i=0; i < this.schemas.length; i++) {
-                schemaNames.push(this.schemas[i].GetName());
-            }
-            return schemaNames;
+        for(let i=0; i < this.schemas.length; i++) {
+            schemaNames.push(this.schemas[i].GetName());
         }
+        return schemaNames;
     }
 
     static GetInstance() : SchemaManager {

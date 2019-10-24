@@ -13,8 +13,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var crypto = require('crypto');
 var BaseKeypair_1 = require("./BaseKeypair");
-var crypto = require("crypto");
 exports.passphrase = 'Semantic Market runs on IOTA! @(^_^)@';
 var RSAKeypair = /** @class */ (function (_super) {
     __extends(RSAKeypair, _super);

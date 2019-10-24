@@ -4,7 +4,7 @@ export declare class SchemaManager {
     private static instance;
     private schemas;
     private constructor();
-    AddSchemaFromFile(name: string, path: string, trustedDIDs?: DID[]): void;
+    AddSchemaFromFile(name: string, content: any, trustedDIDs?: DID[]): void;
     AddSchema(name: string, layout: {}, trustedDIDs?: DID[]): void;
     GetSchema(name: string): Schema;
     GetSchemaNames(): string[];

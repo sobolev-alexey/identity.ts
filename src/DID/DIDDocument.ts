@@ -25,7 +25,7 @@ export class DIDDocument {
             //Retrieve the DID Document
             ReadMAMStream(provider, root, settings)
             .then((messages : string[]) => {
-                let latestDIDDocument : string = messages[messages.length-1];
+                let latestDIDDocument : string = messages[messages.length - 1];
 
                 if(!latestDIDDocument) {
                     resolve();

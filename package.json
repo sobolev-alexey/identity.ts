@@ -1,6 +1,6 @@
 {
   "name": "identity_ts",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "Digital Identity implementation",
   "main": "./out/src/index.js",
   "typings": "typings/src",
@@ -8,6 +8,7 @@
     "build": "copyfiles -V \"./src/VC/Schemas/*.json\" \"./out\" && tsc",
     "test": "mocha -r ts-node/register test/**.ts",
     "testVC": "mocha -r ts-node/register test/VC.test.ts",
+    "postinstall": "./node_modules/.bin/rn-nodeify --install crypto --hack",
     "doc": "jsdoc2md --template README_tpl.hbs --files ./src/**/*.ts --configure ./jsdoc2md.json > ./README.md"
   },
   "repository": {
@@ -21,8 +22,8 @@
   "homepage": "https://github.com/iotaledger/identity.ts#readme",
   "dependencies": {
     "@iota/converter": "^1.0.0-beta.21",
+    "@iota/core": "^1.0.0-beta.21",
     "@iota/mam": "sobolev-alexey/react-native.mam.client.js",
-    "@types/bluebird": "^3.5.28",
     "@types/tv4": "^1.2.29",
     "jsrsasign": "^8.0.12",
     "react-native-crypto": "^2.2.0",
@@ -35,6 +36,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
+    "@types/bluebird": "^3.5.28",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.9",

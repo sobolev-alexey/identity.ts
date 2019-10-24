@@ -176,15 +176,6 @@ describe('Recursive Sorting', function () {
         chai_1.expect(SortedObject).to.deep.equal(PostSorting);
     });
     xit('Should not match signatures when scrambled', function () {
-        console.log('1 ===================');
-        console.log(JSON.stringify(SortedObject));
-        console.log('2 ===================');
-        console.log(JSON.stringify(UnsortedObject));
-        console.log('3 ===================');
-        console.log(keypair.Sign(JSON.stringify(SortedObject)));
-        console.log('4 ===================');
-        console.log(keypair.Sign(JSON.stringify(UnsortedObject)));
-        console.log('5 ===================');
         chai_1.expect(keypair.Sign(JSON.stringify(SortedObject))).to.not.deep.equal(keypair.Sign(JSON.stringify(UnsortedObject)));
     });
     it('Should match signatures even when first scrambled and then sorted', function () {

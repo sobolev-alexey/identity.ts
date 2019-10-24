@@ -719,7 +719,7 @@
   dependencies:
     core-js "^3.1.4"
 
-"@iota/core@^1.0.0-beta.12":
+"@iota/core@^1.0.0-beta.12", "@iota/core@^1.0.0-beta.21":
   version "1.0.0-beta.21"
   resolved "https://registry.yarnpkg.com/@iota/core/-/core-1.0.0-beta.21.tgz#18c6ab679ba3bcc8a93435debcc1cdba27fcf1fb"
   integrity sha512-3RS6Sf4w3qbo+F6BeiLCEJ/LIC+CVw7cJePdUPTqdu1VezPOXwdxk5UWP7rYd1uei7vGYAJ9GWh2UJbrqNYsqA==

@@ -8,6 +8,7 @@ var WhiteListedCredential = require('./Schemas/WhiteListedCredential.json');
 var SchemaManager = /** @class */ (function () {
     function SchemaManager() {
         this.schemas = [];
+        //Load all default Schemas
         this.AddSchemaFromFile('DIDAuthenticationCredential', DIDAuthenticationCredential);
         this.AddSchemaFromFile('DomainValidatedCertificate', DomainValidatedCertificate);
         this.AddSchemaFromFile('WhiteListedCredential', WhiteListedCredential);

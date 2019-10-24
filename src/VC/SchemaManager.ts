@@ -12,6 +12,7 @@ export class SchemaManager {
     private constructor() {
         this.schemas = [];
 
+        //Load all default Schemas
         this.AddSchemaFromFile('DIDAuthenticationCredential', DIDAuthenticationCredential);
         this.AddSchemaFromFile('DomainValidatedCertificate', DomainValidatedCertificate);
         this.AddSchemaFromFile('WhiteListedCredential', WhiteListedCredential);

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//DID
 require("./shim.js");
+//DID
 var DID_1 = require("./DID/DID");
 exports.DID = DID_1.DID;
 var DIDDocument_1 = require("./DID/DIDDocument");
@@ -52,8 +52,6 @@ var SchemaManager_1 = require("./VC/SchemaManager");
 exports.SchemaManager = SchemaManager_1.SchemaManager;
 var VerifiableCredential_1 = require("./VC/VerifiableCredential");
 exports.VerifiableCredential = VerifiableCredential_1.VerifiableCredential;
-var VerifiableObject_1 = require("./VC/VerifiableObject");
-exports.VerificationErrorCodes = VerifiableObject_1.VerificationErrorCodes;
 var VerifiablePresentation_1 = require("./VC/VerifiablePresentation");
 exports.VerifiablePresentation = VerifiablePresentation_1.VerifiablePresentation;
 //# sourceMappingURL=index.js.map
